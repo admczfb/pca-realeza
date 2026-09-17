@@ -48,11 +48,21 @@
     .custom-scrollbar::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 4px; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
+    
+    @media print {
+      body { background-color: #FFFFFF !important; }
+      .no-print { display: none !important; }
+      #mainAppWrapper { min-height: auto !important; }
+      main { padding: 0 !important; }
+      .print-break-inside-avoid { page-break-inside: avoid; }
+      .shadow-sm, .shadow-md, .shadow-lg, .shadow-2xl { box-shadow: none !important; }
+      .border { border-color: #e2e8f0 !important; }
+    }
   </style>
 </head>
 <body class="text-autumn-textMain min-h-screen flex flex-col antialiased selection:bg-autumn-secondary selection:text-white">
 
-  <!-- NOVA TELA DE LOGIN PROFISSIONAL E MODERNA -->
+  <!-- TELA DE LOGIN PROFISSIONAL E MODERNA -->
   <div id="loginGateScreen" class="min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-50 via-emerald-50/30 to-slate-100">
     <div class="absolute top-[5%] left-[5%] w-72 h-72 bg-emerald-200/30 rounded-full blur-[80px] pointer-events-none"></div>
     <div class="absolute bottom-[5%] right-[5%] w-96 h-96 bg-uffs-600/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -118,7 +128,7 @@
   <!-- APLICAÇÃO PRINCIPAL -->
   <div id="mainAppWrapper" class="hidden min-h-screen flex flex-col">
     <!-- HEADER -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-sm">
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-sm no-print">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20 gap-4">
           <div class="flex items-center gap-3">
@@ -267,6 +277,7 @@
             <p class="text-xs text-gray-500 mt-1">Preencha os dados técnicos e justificativas para a contratação/aquisição.</p>
           </div>
 
+          <!-- MENSAGEM DE JANELA FECHADA -->
           <div id="demandLockedMessage" class="hidden bg-gray-50 border border-gray-200 rounded-2xl p-12 text-center flex flex-col items-center justify-center">
             <div class="bg-red-100 text-red-600 p-5 rounded-full mb-5 shadow-sm"><i data-lucide="lock" class="w-10 h-10"></i></div>
             <h3 class="text-xl font-black text-gray-800 mb-2">Janela de Cadastros Fechada</h3>
@@ -276,6 +287,7 @@
             </p>
           </div>
 
+          <!-- FORMULÁRIO -->
           <div id="demandFormContainer">
             <form id="pcaDemandForm" onsubmit="window.pcaApp.submitDemand(event)" class="space-y-8 text-sm">
               <div class="bg-autumn-bg p-5 rounded-2xl border border-gray-200 space-y-4 shadow-sm">
@@ -323,7 +335,7 @@
                   <div>
                     <label class="block font-bold text-gray-700 mb-1 text-xs">Unidade de Medida <span class="text-red-500">*</span></label>
                     <select id="demUnit" required class="w-full px-3 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-autumn-secondary focus:outline-none bg-white font-medium text-xs cursor-pointer">
-                      <option value="">Selecione...</option><option value="Bobina">Bobina</option><option value="Caixa">Caixa</option><option value="Dia">Dia</option><option value="Dúzia">Dúzia</option><option value="Fardo">Fardo</option><option value="Frasco">Frasco</option><option value="Galão">Galão</option><option value="Hora">Hora</option><option value="Jogo">Jogo</option><option value="Kit">Kit</option><option value="Lata">Lata</option><option value="Litro">Litro</option><option value="Metro cúbico">Metro cúbico</option><option value="Metro linear">Metro linear</option><option value="Metro quadrado">Metro quadrado</option><option value="Miligrama">Miligrama</option><option value="Mililitro">Mililitro</option><option value="Mês">Mês</option><option value="Pacote">Pacote</option><option value="Palavra">Palavra</option><option value="Par">Par</option><option value="Peça">Peça</option><option value="Quilômetro">Quilômetro</option><option value="Quilo">Quilo</option><option value="Rolo">Rolo</option><option value="Saco">Saco</option><option value="Serviço">Serviço</option><option value="Tonelada">Tonelada</option>
+                      <option value="">Selecione...</option><option value="Unidade">Unidade</option><option value="Bobina">Bobina</option><option value="Caixa">Caixa</option><option value="Dia">Dia</option><option value="Dúzia">Dúzia</option><option value="Fardo">Fardo</option><option value="Frasco">Frasco</option><option value="Galão">Galão</option><option value="Hora">Hora</option><option value="Jogo">Jogo</option><option value="Kit">Kit</option><option value="Lata">Lata</option><option value="Litro">Litro</option><option value="Metro cúbico">Metro cúbico</option><option value="Metro linear">Metro linear</option><option value="Metro quadrado">Metro quadrado</option><option value="Miligrama">Miligrama</option><option value="Mililitro">Mililitro</option><option value="Mês">Mês</option><option value="Pacote">Pacote</option><option value="Palavra">Palavra</option><option value="Par">Par</option><option value="Peça">Peça</option><option value="Quilômetro">Quilômetro</option><option value="Quilo">Quilo</option><option value="Rolo">Rolo</option><option value="Saco">Saco</option><option value="Serviço">Serviço</option><option value="Tonelada">Tonelada</option>
                     </select>
                   </div>
                 </div>
@@ -569,6 +581,50 @@
         </div>
       </div>
 
+      <!-- VIEW NOVO: OUTROS ENCAMINHAMENTOS -->
+      <div id="view-admin-routings" class="space-y-6 hidden">
+        <div class="print-only-header text-center mb-8 border-b-2 border-slate-800 pb-4">
+            <h1 class="text-2xl font-black uppercase tracking-wider text-slate-900">Relatório: Outros Encaminhamentos</h1>
+            <p id="pdf-timestamp-routing" class="text-xs text-slate-600 mt-1 font-bold"></p>
+        </div>
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm no-print">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-gray-200 pb-5">
+            <div>
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[11px] font-bold mb-2 border border-blue-200">
+                <i data-lucide="forward" class="w-3.5 h-3.5"></i> Redirecionadas
+              </div>
+              <h2 class="text-2xl font-black text-autumn-primary">Outros Encaminhamentos</h2>
+              <p class="text-xs text-gray-500 mt-1">Lista de demandas que não entrarão no PCA (Ex: Terceirizados, Móveis Padronizados).</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="flex items-center bg-gray-50 border border-gray-300 rounded-xl px-2 py-1 shadow-inner">
+                <i data-lucide="calendar" class="w-4 h-4 text-autumn-secondary ml-1"></i>
+                <select id="filterRoutYear" onchange="window.pcaApp.renderAdminRoutings()" class="bg-transparent px-2 py-1.5 text-xs font-bold text-gray-700 outline-none w-full cursor-pointer">
+                </select>
+              </div>
+              <div class="flex items-center bg-gray-50 border border-gray-300 rounded-xl px-2 py-1 shadow-inner">
+                <i data-lucide="map-pin" class="w-4 h-4 text-autumn-secondary ml-1"></i>
+                <select id="filterRoutSector" onchange="window.pcaApp.renderAdminRoutings()" class="bg-transparent px-2 py-1.5 text-xs font-bold text-gray-700 outline-none w-full cursor-pointer">
+                </select>
+              </div>
+              <div class="flex items-center bg-gray-50 border border-gray-300 rounded-xl px-2 py-1 shadow-inner">
+                <i data-lucide="list-tree" class="w-4 h-4 text-autumn-secondary ml-1"></i>
+                <select id="filterRoutType" onchange="window.pcaApp.renderAdminRoutings()" class="bg-transparent px-2 py-1.5 text-xs font-bold text-gray-700 outline-none w-full cursor-pointer">
+                  <option value="all">Todos os Tipos</option>
+                  <option value="É Item da lista dos postos Terceirizados">Postos Terceirizados</option>
+                  <option value="É Item da lista de Móveis Padronizados">Móveis Padronizados</option>
+                  <option value="É Item da lista de Materiais de Expediente Padronizados">Mat. Expediente Padronizados</option>
+                </select>
+              </div>
+              <button onclick="window.pcaApp.printRoutingReport()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-sm border border-gray-300 flex items-center gap-1.5">
+                <i data-lucide="printer" class="w-4 h-4 text-gray-500"></i> Relatório PDF
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="adminRoutingsContainer" class="space-y-4"></div>
+      </div>
+
       <!-- VIEW 5: ACOMPANHAMENTO E STATUS (Execução) -->
       <div id="view-admin-tracking" class="space-y-6 hidden">
         <div class="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm">
@@ -611,7 +667,6 @@
           </div>
         </div>
 
-        <!-- NOVO CARD: GESTÃO DE SERVIDORES -->
         <div class="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm flex flex-col lg:flex-row gap-6">
           <div class="w-full lg:w-1/3 space-y-4 border-b lg:border-b-0 lg:border-r border-gray-100 pb-6 lg:pb-0 lg:pr-6">
             <div class="border-b border-gray-200 pb-3 flex justify-between items-start mb-4">
@@ -732,47 +787,79 @@
            </select>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-             <label class="block font-bold text-gray-700 mb-1">Possui Estoque no Almoxarifado?</label>
-             <select id="classEstoque" class="w-full px-3 py-2 rounded-xl border border-gray-300 bg-white cursor-pointer">
-               <option value="Não Avaliado">Não Avaliado</option><option value="Sim">Sim</option><option value="Não">Não</option>
-             </select>
+        <div class="space-y-3 mb-5">
+          <!-- Item 1 -->
+          <div class="flex items-center justify-between bg-white border border-gray-200 p-2.5 rounded-xl shadow-sm">
+            <span class="font-bold text-gray-700 text-xs">Possui Estoque no Almoxarifado?</span>
+            <div class="flex gap-2">
+               <input type="hidden" id="classEstoque" value="Não Avaliado">
+               <button type="button" onclick="window.pcaApp.setClassBtn('classEstoque', 'Sim')" id="btn_classEstoque_Sim" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Sim</button>
+               <button type="button" onclick="window.pcaApp.setClassBtn('classEstoque', 'Não')" id="btn_classEstoque_Não" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Não</button>
+            </div>
           </div>
-          <div>
-             <label class="block font-bold text-gray-700 mb-1">Faz parte do AVN?</label>
-             <select id="classAVN" class="w-full px-3 py-2 rounded-xl border border-gray-300 bg-white cursor-pointer">
-               <option value="Não Avaliado">Não Avaliado</option><option value="Sim">Sim</option><option value="Não">Não</option>
-             </select>
+          <!-- Item 2 -->
+          <div class="flex items-center justify-between bg-white border border-gray-200 p-2.5 rounded-xl shadow-sm">
+            <span class="font-bold text-gray-700 text-xs">Faz parte do AVN?</span>
+            <div class="flex gap-2">
+               <input type="hidden" id="classAVN" value="Não Avaliado">
+               <button type="button" onclick="window.pcaApp.setClassBtn('classAVN', 'Sim')" id="btn_classAVN_Sim" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Sim</button>
+               <button type="button" onclick="window.pcaApp.setClassBtn('classAVN', 'Não')" id="btn_classAVN_Não" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Não</button>
+            </div>
           </div>
-          <div>
-             <label class="block font-bold text-gray-700 mb-1">Possui Saldo em Ata Vigente?</label>
-             <select id="classAta" class="w-full px-3 py-2 rounded-xl border border-gray-300 bg-white cursor-pointer">
-               <option value="Não Avaliado">Não Avaliado</option><option value="Sim">Sim</option><option value="Não">Não</option>
-             </select>
+          <!-- Item 3 -->
+          <div class="flex items-center justify-between bg-white border border-gray-200 p-2.5 rounded-xl shadow-sm">
+            <span class="font-bold text-gray-700 text-xs">Possui Saldo em Ata Vigente?</span>
+            <div class="flex gap-2">
+               <input type="hidden" id="classAta" value="Não Avaliado">
+               <button type="button" onclick="window.pcaApp.setClassBtn('classAta', 'Sim')" id="btn_classAta_Sim" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Sim</button>
+               <button type="button" onclick="window.pcaApp.setClassBtn('classAta', 'Não')" id="btn_classAta_Não" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Não</button>
+            </div>
           </div>
-          <div>
-             <label class="block font-bold text-gray-700 mb-1">É item de TI?</label>
-             <select id="classTI" class="w-full px-3 py-2 rounded-xl border border-gray-300 bg-white cursor-pointer">
-               <option value="Não Avaliado">Não Avaliado</option><option value="Sim">Sim</option><option value="Não">Não</option>
-             </select>
+          <!-- Item 4 -->
+          <div class="flex items-center justify-between bg-white border border-gray-200 p-2.5 rounded-xl shadow-sm">
+            <span class="font-bold text-gray-700 text-xs">É item de TI?</span>
+            <div class="flex gap-2">
+               <input type="hidden" id="classTI" value="Não Avaliado">
+               <button type="button" onclick="window.pcaApp.setClassBtn('classTI', 'Sim')" id="btn_classTI_Sim" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Sim</button>
+               <button type="button" onclick="window.pcaApp.setClassBtn('classTI', 'Não')" id="btn_classTI_Não" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Não</button>
+            </div>
           </div>
         </div>
+
         <hr class="border-gray-200">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-autumn-bg p-4 rounded-xl border border-autumn-mustard/30">
+        
+        <div class="bg-autumn-bg p-4 rounded-xl border border-autumn-mustard/30 space-y-4">
           <div>
              <label class="block font-bold text-gray-900 mb-1">Deferido para o PCA?</label>
-             <select id="classStatusPCA" class="w-full px-3 py-2 rounded-xl border border-gray-400 bg-white font-bold text-autumn-primary cursor-pointer">
+             <select id="classStatusPCA" onchange="window.pcaApp.toggleClassExtras()" class="w-full px-3 py-2.5 rounded-xl border border-gray-400 bg-white font-bold text-autumn-primary cursor-pointer">
                <option value="Pendente">Aguardando Avaliação</option>
                <option value="Deferido">Sim, Cadastrar no PCA</option>
                <option value="Indeferido">Não Cadastrar (Indeferido)</option>
+               <option value="Outro Encaminhamento">Outro Encaminhamento</option>
              </select>
           </div>
-          <div>
-             <label class="block font-bold text-gray-900 mb-1">Número do DFD Gerado</label>
+          
+          <div id="boxClassDFD" class="hidden">
+             <label class="block font-bold text-gray-900 mb-1">Número do DFD Gerado <span class="text-red-500">*</span></label>
              <input type="text" id="classDFD" placeholder="Ex: 123/2026" class="w-full px-3 py-2 rounded-xl border border-gray-400 focus:ring-2 focus:ring-autumn-primary bg-white font-mono font-bold">
           </div>
+
+          <div id="boxClassReject" class="hidden">
+             <label class="block font-bold text-red-700 mb-1">Motivo do Indeferimento <span class="text-red-500">*</span></label>
+             <textarea id="classRejectReason" rows="2" placeholder="Explique para o setor o motivo da recusa..." class="w-full px-3 py-2 rounded-xl border border-red-300 focus:ring-2 focus:ring-red-400 bg-red-50 text-red-900 font-medium"></textarea>
+          </div>
+
+          <div id="boxClassRoute" class="hidden">
+             <label class="block font-bold text-purple-700 mb-1">Selecione a Lista de Destino <span class="text-red-500">*</span></label>
+             <select id="classRoutingType" class="w-full px-3 py-2.5 rounded-xl border border-purple-300 focus:ring-2 focus:ring-purple-400 bg-purple-50 text-purple-900 font-bold cursor-pointer">
+               <option value="">Selecione...</option>
+               <option value="É Item da lista dos postos Terceirizados">É Item da lista dos postos Terceirizados</option>
+               <option value="É Item da lista de Móveis Padronizados">É Item da lista de Móveis Padronizados</option>
+               <option value="É Item da lista de Materiais de Expediente Padronizados">É Item da lista de Materiais de Expediente Padronizados</option>
+             </select>
+          </div>
         </div>
+
         <div class="flex justify-end gap-2 pt-2">
           <button type="button" onclick="window.pcaApp.closeClassifyModal()" class="px-4 py-2 rounded-xl border border-gray-300 text-gray-600 font-semibold hover:bg-gray-100 transition">Cancelar</button>
           <button type="submit" class="px-6 py-2.5 rounded-xl bg-autumn-primary hover:bg-autumn-primaryHover text-white font-bold shadow-sm transition">Salvar Análise</button>
@@ -782,7 +869,7 @@
   </div>
 
   <!-- MODAL DE VISUALIZAÇÃO COMPLETA DA DEMANDA -->
-  <div id="viewDemandModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+  <div id="viewDemandModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-3xl w-full p-6 shadow-2xl border border-gray-200 space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
       <div class="flex items-start justify-between border-b border-gray-200 pb-4">
         <div>
@@ -813,11 +900,11 @@
       <div class="space-y-4">
          <div>
             <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Descrição Técnica Completa</span>
-            <div id="vdDesc" class="bg-white border border-gray-200 p-4 rounded-xl text-sm text-gray-700 whitespace-pre-wrap leading-relaxed shadow-sm">...</div>
+            <div id="vdDesc" class="bg-white border border-gray-200 p-4 rounded-xl text-sm text-gray-700 whitespace-pre-wrap break-words leading-relaxed shadow-sm">...</div>
          </div>
          <div>
             <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Justificativa da Necessidade</span>
-            <div id="vdNeedJust" class="bg-white border border-gray-200 p-4 rounded-xl text-sm text-gray-700 whitespace-pre-wrap leading-relaxed shadow-sm">...</div>
+            <div id="vdNeedJust" class="bg-white border border-gray-200 p-4 rounded-xl text-sm text-gray-700 whitespace-pre-wrap break-words leading-relaxed shadow-sm">...</div>
          </div>
       </div>
 
@@ -879,7 +966,19 @@
       }
       function saveStorage(key, data) { try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) {} }
       const fmtMoney = (val) => (Number(val)||0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      const parseDate = (dStr) => { const d = new Date(dStr); return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); };
+      
+      const parseDate = (dStr) => { 
+          if(!dStr) return '';
+          const d = new Date(dStr); 
+          if(isNaN(d.getTime())) return '-';
+          return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); 
+      };
+      
+      const parseDateOnly = (dStr) => {
+          if(!dStr) return '-';
+          if(dStr.includes('-')) return dStr.split('-').reverse().join('/');
+          return dStr;
+      };
       
       function getYearBadgeClass(year) {
           const m = {
@@ -919,6 +1018,8 @@
       state.demands.forEach(d => {
          if(!d.executionStatus) d.executionStatus = 'PLANEJADA';
          if(!d.executionReason) d.executionReason = '';
+         if(!d.pcaFeedback) d.pcaFeedback = '';
+         if(!d.routingDetail) d.routingDetail = '';
       });
 
       const savedUserId = sessionStorage.getItem('pca_active_user_id');
@@ -966,6 +1067,7 @@
                     if(state.currentView === 'admin-approved') pcaApp.renderAdminApproved();
                     if(state.currentView === 'admin-rejected') pcaApp.renderAdminRejected();
                     if(state.currentView === 'admin-segments') pcaApp.renderAdminSegments();
+                    if(state.currentView === 'admin-routings') pcaApp.renderAdminRoutings();
                     if(state.currentView === 'admin-tracking') pcaApp.renderAdminTracking();
                     if(state.currentView === 'admin-dashboard') pcaApp.updateAdminDashboard();
                     if(state.currentView === 'search-results') {
@@ -1014,7 +1116,7 @@
         },
 
         autoFillDemandForm() {
-            if(state.currentUser) {
+            if(state.currentUser && state.currentUser.role !== 'admin') {
                 const u = state.currentUser;
                 const userEl = document.getElementById('demUser');
                 const cpfEl = document.getElementById('demCpf');
@@ -1027,22 +1129,37 @@
                 }
                 if(cpfEl && u.cpf) {
                     cpfEl.value = u.cpf;
+                    cpfEl.setAttribute('readonly', true);
+                    cpfEl.classList.add('bg-gray-100', 'text-gray-500', 'cursor-not-allowed');
                 }
                 if(sectorEl && u.sector) {
                     sectorEl.value = u.sector;
+                    sectorEl.setAttribute('disabled', true);
+                    sectorEl.classList.add('bg-gray-100', 'text-gray-500', 'cursor-not-allowed');
                 }
             }
         },
 
         setMinimumDate() {
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            const yyyy = tomorrow.getFullYear();
-            const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
-            const dd = String(tomorrow.getDate()).padStart(2, '0');
-            
+            const activeY = parseInt(state.activeYearPCA.replace(/\D/g, ''));
             const dateInput = document.getElementById("demDate");
-            if(dateInput) dateInput.setAttribute("min", `${yyyy}-${mm}-${dd}`);
+            if(!dateInput) return;
+            
+            const today = new Date();
+            let minDateStr = `${activeY}-01-01`;
+            
+            if (today.getFullYear() === activeY) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                minDateStr = tomorrow.toISOString().split('T')[0];
+            } else if (today.getFullYear() > activeY) {
+                minDateStr = `${activeY}-01-01`;
+            }
+            
+            const maxDateStr = `${activeY}-12-31`;
+            
+            dateInput.setAttribute("min", minDateStr);
+            dateInput.setAttribute("max", maxDateStr);
         },
 
         checkFormLock() {
@@ -1175,7 +1292,7 @@
           const allViews = [
             'view-form-demand', 'view-my-demands', 
             'view-admin-inbox', 'view-admin-catalog', 'view-admin-approved', 
-            'view-admin-rejected', 'view-admin-segments', 'view-admin-tracking', 'view-admin-settings', 'view-search-results', 'view-admin-dashboard'
+            'view-admin-rejected', 'view-admin-segments', 'view-admin-routings', 'view-admin-tracking', 'view-admin-settings', 'view-search-results', 'view-admin-dashboard'
           ];
           allViews.forEach(id => {
             const el = document.getElementById(id); if (el) el.classList.add('hidden');
@@ -1188,6 +1305,7 @@
           if (viewId === 'admin-approved') { this.populateAdminApprovedFilters(); this.renderAdminApproved(); }
           if (viewId === 'admin-rejected') { this.populateAdminRejectedFilters(); this.renderAdminRejected(); }
           if (viewId === 'admin-segments') { this.populateSegmentFilters(); this.renderAdminSegments(); }
+          if (viewId === 'admin-routings') { this.populateAdminRejectedFilters(); this.renderAdminRoutings(); }
           if (viewId === 'admin-tracking') { this.populateTrackingSectors(); this.renderAdminTracking(); }
           if (viewId === 'admin-settings') this.renderSettings();
           if (viewId === 'admin-dashboard') this.updateAdminDashboard();
@@ -1213,6 +1331,7 @@
             h += `<button onclick="window.pcaApp.navigate('admin-approved')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-approved'?aC:iC}"><i data-lucide="check-square" class="w-4 h-4"></i> Oficial PCA</button>`;
             h += `<button onclick="window.pcaApp.navigate('admin-rejected')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-rejected'?aC:iC}"><i data-lucide="x-octagon" class="w-4 h-4"></i> Indeferidos</button>`;
             h += `<button onclick="window.pcaApp.navigate('admin-segments')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-segments'?aC:iC}"><i data-lucide="layers" class="w-4 h-4"></i> Por Segmento</button>`;
+            h += `<button onclick="window.pcaApp.navigate('admin-routings')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-routings'?aC:iC}"><i data-lucide="forward" class="w-4 h-4"></i> Redirecionadas</button>`;
             h += `<button onclick="window.pcaApp.navigate('admin-tracking')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-tracking'?aC:iC}"><i data-lucide="trending-up" class="w-4 h-4"></i> Status Execução</button>`;
             h += `<button onclick="window.pcaApp.navigate('admin-settings')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-settings'?aC:iC}"><i data-lucide="settings" class="w-4 h-4"></i> Admin</button>`;
             
@@ -1264,7 +1383,7 @@
 
           const years = ['PCA-2025','PCA-2026','PCA-2027','PCA-2028','PCA-2029','PCA-2030','PCA-2031','PCA-2032','PCA-2033','PCA-2034','PCA-2035'];
           
-          const filters = ['filterMyYear', 'filterAdminInboxYear', 'filterAdminApprovedYear', 'filterRejYear', 'filterSegYear', 'filterDashYear'];
+          const filters = ['filterMyYear', 'filterAdminInboxYear', 'filterAdminApprovedYear', 'filterRejYear', 'filterSegYear', 'filterDashYear', 'filterRoutYear'];
           filters.forEach(id => {
               const el = document.getElementById(id);
               if (el) el.innerHTML = '<option value="all">Todos os Anos</option>' + years.map(y=>`<option value="${y}">${y}</option>`).join('');
@@ -1290,8 +1409,10 @@
         populateAdminRejectedFilters() {
           const elSec = document.getElementById('filterRejSector');
           const elSeg = document.getElementById('filterRejSegment');
+          const elRoutSec = document.getElementById('filterRoutSector');
           if(elSec) elSec.innerHTML = '<option value="all">Todos os Setores</option>' + state.sectors.map(s => `<option value="${s}">${s}</option>`).join('');
           if(elSeg) elSeg.innerHTML = '<option value="all">Todos os Segmentos</option>' + state.segments.map(s => `<option value="${s}">${s}</option>`).join('');
+          if(elRoutSec) elRoutSec.innerHTML = '<option value="all">Todos os Setores</option>' + state.sectors.map(s => `<option value="${s}">${s}</option>`).join('');
         },
 
         populateTrackingSectors() {
@@ -1352,7 +1473,7 @@
             results.forEach(d => {
                 let statusColor = d.statusPCA === 'Deferido' ? 'text-green-700 bg-green-100 border-green-200' : 
                                  (d.statusPCA === 'Indeferido' ? 'text-red-700 bg-red-100 border-red-200' : 
-                                 'text-autumn-secondary bg-autumn-mustard/20 border-autumn-mustard/40');
+                                 (d.statusPCA === 'Outro Encaminhamento' ? 'text-blue-700 bg-blue-100 border-blue-200' : 'text-autumn-secondary bg-autumn-mustard/20 border-autumn-mustard/40'));
                 
                 let execBadge = getExecutionBadge(d.executionStatus);
 
@@ -1366,7 +1487,7 @@
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded border uppercase ${statusColor}">${d.statusPCA}</span>
                         </div>
                         <h4 class="text-sm font-black text-autumn-primary mb-1 line-clamp-2" title="${d.title}">${d.title}</h4>
-                        <p class="text-xs text-gray-500 line-clamp-2 mb-3">${d.desc}</p>
+                        <p class="text-xs text-gray-500 line-clamp-2 mb-3 break-words">${d.desc}</p>
                         
                         <div class="flex flex-col gap-1.5 text-[11px] font-bold text-gray-600 bg-gray-50 p-2.5 rounded-xl border border-gray-100 mb-3">
                             <div class="flex items-center gap-1.5 truncate"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-autumn-secondary"></i> ${d.sector}</div>
@@ -1538,7 +1659,15 @@
           document.getElementById('newUserName').value = u.name;
           document.getElementById('newUserCpf').value = u.cpf || '';
           document.getElementById('newUserLogin').value = u.login;
-          document.getElementById('newUserSector').value = u.sector;
+          
+          const secSelect = document.getElementById('newUserSector');
+          if(secSelect.querySelector(`option[value="${u.sector}"]`)) {
+             secSelect.value = u.sector;
+          } else {
+             secSelect.innerHTML = `<option value="${u.sector}">${u.sector}</option>` + secSelect.innerHTML;
+             secSelect.value = u.sector;
+          }
+          
           document.getElementById('newUserRole').value = u.role || 'solicitante';
           document.getElementById('newUserPassword').value = u.password;
           document.getElementById('userFormTitle').innerHTML = '<i data-lucide="edit-3" class="w-5 h-5 text-autumn-mustard"></i> Editar Usuário';
@@ -1586,7 +1715,7 @@
         },
 
         deleteUser(id) {
-          if(confirm('Tem certeza que deseja remover o acesso deste usuário?')) {
+          if(confirm('Tem certeza que deseja remover o acesso deste demandante?')) {
             state.users = state.users.filter(u => u.id !== id);
             this.persistData();
             if(window.cloudSyncInstance) window.cloudSyncInstance.deleteUser(id);
@@ -1599,19 +1728,19 @@
           const c = document.getElementById('usersListContainer');
           const badge = document.getElementById('userCountBadge');
           if(!c) return;
+          const nonAdminUsers = state.users.filter(u => u.role !== 'admin');
+          badge.textContent = `${nonAdminUsers.length} cadastrados`;
           
-          badge.textContent = `${state.users.length} cadastrados`;
-          
-          if(state.users.length === 0) {
-            c.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-gray-500 font-bold">Nenhum usuário cadastrado.</td></tr>';
+          if(nonAdminUsers.length === 0) {
+            c.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-gray-500 font-bold">Nenhum demandante cadastrado.</td></tr>';
             return;
           }
 
-          c.innerHTML = state.users.map(u => `
+          c.innerHTML = nonAdminUsers.map(u => `
             <tr class="bg-white hover:bg-gray-50 transition border-b border-gray-100 last:border-0">
               <td class="p-3">
                 <div class="font-bold text-gray-800">${u.name}</div>
-                <div class="font-mono text-[10px] font-black text-autumn-secondary mt-0.5">${u.login} <span class="text-gray-400 font-normal">|</span> ${u.cpf || 'Sem CPF'}</div>
+                <div class="font-mono text-[10px] font-black text-autumn-secondary mt-0.5">${u.login} <span class="text-gray-300 mx-1">|</span> <span class="text-gray-400">${u.cpf || 'Sem CPF'}</span></div>
               </td>
               <td class="p-3"><span class="bg-gray-100 border border-gray-200 text-gray-700 px-2 py-1 rounded-lg font-bold text-[10px]">${u.sector}</span></td>
               <td class="p-3"><span class="px-2 py-1 rounded-lg font-bold text-[10px] uppercase ${u.role === 'admin' ? 'bg-autumn-mustard/20 text-autumn-secondary' : 'bg-blue-50 text-blue-600'}">${u.role}</span></td>
@@ -1683,6 +1812,9 @@
             statusPCA: 'Pendente',
             dfd: '',
             
+            pcaFeedback: '', // Justificativa de Indeferimento
+            routingDetail: '', // Detalhe de Outros Encaminhamentos
+
             executionStatus: 'PLANEJADA',
             executionReason: ''
           };
@@ -1710,7 +1842,10 @@
           
           let h = '';
           myD.forEach(d => {
-            let sBadge = d.statusPCA === 'Deferido' ? 'bg-green-100 text-green-800 border-green-200' : (d.statusPCA === 'Indeferido' ? 'bg-red-100 text-red-800 border-red-200' : 'bg-autumn-mustard/20 text-autumn-secondary border-autumn-mustard/40');
+            let sBadge = d.statusPCA === 'Deferido' ? 'bg-green-100 text-green-800 border-green-200' : 
+                         (d.statusPCA === 'Indeferido' ? 'bg-red-100 text-red-800 border-red-200' : 
+                         (d.statusPCA === 'Outro Encaminhamento' ? 'bg-blue-100 text-blue-800 border-blue-200' : 'bg-autumn-mustard/20 text-autumn-secondary border-autumn-mustard/40'));
+            
             let yearBadge = getYearBadgeClass(d.yearPCA);
             let execBadge = getExecutionBadge(d.executionStatus);
 
@@ -1746,9 +1881,12 @@
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 text-[11px] text-gray-600">
                   <div><span class="block text-gray-400 font-bold uppercase">Quantidade</span> <span class="font-bold text-gray-800">${d.qty} ${d.unit}</span></div>
                   <div><span class="block text-gray-400 font-bold uppercase">Prioridade</span> <span class="font-bold text-gray-800">${d.priority}</span></div>
-                  <div><span class="block text-gray-400 font-bold uppercase">Data Desejada</span> <span class="font-bold text-gray-800">${d.dateNeed}</span></div>
+                  <div><span class="block text-gray-400 font-bold uppercase">Data Desejada</span> <span class="font-bold text-gray-800">${parseDateOnly(d.dateNeed)}</span></div>
                   <div><span class="block text-gray-400 font-bold uppercase">DFD Nº</span> <span class="font-bold text-autumn-primary">${d.dfd || 'N/A'}</span></div>
                 </div>
+                
+                ${d.statusPCA === 'Indeferido' && d.pcaFeedback ? `<div class="bg-red-50 border border-red-200 p-3 rounded-xl text-xs text-red-800 mt-2 shadow-sm"><strong class="flex items-center gap-1.5 mb-0.5"><i data-lucide="x-circle" class="w-4 h-4"></i> Motivo do Indeferimento:</strong> ${d.pcaFeedback}</div>` : ''}
+                ${d.statusPCA === 'Outro Encaminhamento' && d.routingDetail ? `<div class="bg-blue-50 border border-blue-200 p-3 rounded-xl text-xs text-blue-800 mt-2 shadow-sm"><strong class="flex items-center gap-1.5 mb-0.5"><i data-lucide="forward" class="w-4 h-4"></i> Redirecionamento da Demanda:</strong> ${d.routingDetail}</div>` : ''}
               </div>
             `;
           });
@@ -1800,7 +1938,7 @@
                   <div class="flex-1">
                     <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Objeto</span>
                     <div class="text-sm font-bold text-autumn-primary">${d.title}</div>
-                    <div class="text-[11px] text-gray-600 mt-1 truncate">${d.desc}</div>
+                    <div class="text-[11px] text-gray-600 mt-1 break-words whitespace-pre-wrap line-clamp-3">${d.desc}</div>
                   </div>
                   <div class="md:w-32 md:text-right border-t md:border-t-0 md:border-l border-gray-300 pt-3 md:pt-0 md:pl-4">
                     <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-0.5">Total Estimado</span>
@@ -1835,7 +1973,7 @@
                       <span class="text-[10px] font-bold text-gray-600 uppercase">${d.sector}</span>
                     </div>
                     <h4 class="text-sm font-bold text-gray-900 mb-1">${d.title}</h4>
-                    <p class="text-[11px] text-gray-600 mb-2 whitespace-pre-wrap">${d.desc}</p>
+                    <p class="text-[11px] text-gray-600 mb-2 break-words whitespace-pre-wrap line-clamp-3">${d.desc}</p>
                     
                     ${hasLink ? `<a href="${d.link}" target="_blank" class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 hover:underline mb-4"><i data-lucide="external-link" class="w-3 h-3"></i> Acessar Link de Referência</a>` : '<div class="text-[10px] text-gray-400 italic mb-4">Nenhum link de referência fornecido.</div>'}
                 </div>
@@ -1904,15 +2042,15 @@
                   <div>
                     <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Item</span>
                     <div class="text-sm font-bold text-autumn-primary">${d.title}</div>
-                    <div class="text-[11px] text-gray-700 mt-1 whitespace-pre-wrap">${d.desc}</div>
+                    <div class="text-[11px] text-gray-700 mt-1 break-words whitespace-pre-wrap line-clamp-3">${d.desc}</div>
                   </div>
                   <div>
                     <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Justificativa da Contratação</span>
-                    <div class="text-[11px] text-gray-700 whitespace-pre-wrap">${d.needJust}</div>
+                    <div class="text-[11px] text-gray-700 break-words whitespace-pre-wrap line-clamp-3">${d.needJust}</div>
                     
                     <div class="mt-3 grid grid-cols-2 gap-2 text-[10px]">
                       <div><strong class="text-gray-400 uppercase">Qtd:</strong> <span class="font-bold text-gray-900">${d.qty} ${d.unit}</span></div>
-                      <div><strong class="text-gray-400 uppercase">Data Max:</strong> <span class="font-bold text-gray-900">${d.dateNeed}</span></div>
+                      <div><strong class="text-gray-400 uppercase">Data Max:</strong> <span class="font-bold text-gray-900">${parseDateOnly(d.dateNeed)}</span></div>
                       <div><strong class="text-gray-400 uppercase">Prioridade:</strong> <span class="font-bold text-gray-900">${d.priority}</span></div>
                       <div class="truncate"><strong class="text-gray-400 uppercase">Link:</strong> <a href="${d.link}" target="_blank" class="text-blue-600 font-bold hover:underline">Ver ref.</a></div>
                     </div>
@@ -1962,12 +2100,72 @@
                 <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
                   <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Item</span>
                   <div class="text-sm font-bold text-autumn-primary">${d.title}</div>
-                  <div class="text-[11px] text-gray-700 mt-1 whitespace-pre-wrap">${d.desc}</div>
+                  <div class="text-[11px] text-gray-700 mt-1 break-words whitespace-pre-wrap line-clamp-3">${d.desc}</div>
                 </div>
+                
+                ${d.pcaFeedback ? `<div class="bg-red-50 border border-red-200 p-3 rounded-xl text-xs text-red-800 mt-2 shadow-sm"><strong class="flex items-center gap-1.5 mb-0.5"><i data-lucide="x-circle" class="w-4 h-4"></i> Motivo do Indeferimento:</strong> ${d.pcaFeedback}</div>` : ''}
               </div>
              `;
           });
           c.innerHTML = h; lucide.createIcons();
+        },
+
+        renderAdminRoutings() {
+          const c = document.getElementById('adminRoutingsContainer');
+          const filterY = document.getElementById('filterRoutYear').value;
+          const filterS = document.getElementById('filterRoutSector').value;
+          const filterT = document.getElementById('filterRoutType').value;
+          
+          let listD = state.demands.filter(d => d.statusPCA === 'Outro Encaminhamento' && d.codeSIPAC !== '0');
+          
+          if (filterY !== 'all') { listD = listD.filter(d => d.yearPCA === filterY); }
+          if (filterS !== 'all') { listD = listD.filter(d => d.sector === filterS); }
+          if (filterT !== 'all') { listD = listD.filter(d => d.routingDetail === filterT); }
+          
+          listD.sort((a,b) => new Date(b.dateStamp) - new Date(a.dateStamp));
+
+          if(listD.length === 0) { c.innerHTML = '<div class="p-8 text-center text-gray-400 font-bold bg-gray-50 rounded-2xl border border-dashed border-gray-300">Nenhuma demanda encaminhada encontrada com os filtros selecionados.</div>'; return; }
+          
+          let h = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
+          listD.forEach(d => {
+             h += `
+              <div class="print-break-inside-avoid border border-blue-300 rounded-2xl p-5 bg-white shadow-sm flex flex-col gap-4 border-l-4 border-l-blue-600">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <div class="flex items-center gap-2 mb-2 flex-wrap">
+                      <span class="font-mono text-xs font-black px-2 py-0.5 rounded border border-gray-300 bg-gray-100">${d.yearPCA}</span>
+                      <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-200">REDIRECIONADO</span>
+                      <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-50 text-purple-800 border border-purple-200">SIPAC: ${d.codeSIPAC}</span>
+                    </div>
+                    <h4 class="text-sm font-black text-gray-900 uppercase">${d.sector} <span class="text-gray-400 font-normal mx-1">•</span> <span class="capitalize text-gray-700">${d.user}</span></h4>
+                  </div>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                  <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Item Solicitado</span>
+                  <div class="text-sm font-bold text-autumn-primary">${d.title}</div>
+                  <div class="mt-2 grid grid-cols-2 gap-2 text-[10px]">
+                      <div><strong class="text-gray-400 uppercase">Quantidade:</strong> <span class="font-bold text-gray-900">${d.qty} ${d.unit}</span></div>
+                      <div><strong class="text-gray-400 uppercase">Valor Estimado:</strong> <span class="font-bold text-autumn-secondary">R$ ${fmtMoney(d.total)}</span></div>
+                  </div>
+                </div>
+                
+                ${d.routingDetail ? `<div class="bg-blue-50 border border-blue-200 p-3 rounded-xl text-xs text-blue-800 shadow-sm font-bold"><i data-lucide="forward" class="w-4 h-4 inline mr-1"></i> Destino: ${d.routingDetail}</div>` : ''}
+              </div>
+             `;
+          });
+          h += '</div>';
+          c.innerHTML = h; lucide.createIcons();
+        },
+
+        printRoutingReport() {
+            setTimeout(() => {
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('pt-BR') + ' às ' + now.toLocaleTimeString('pt-BR');
+                const ts = document.getElementById('pdf-timestamp-routing');
+                if(ts) ts.innerText = `Documento gerado em: ${dateStr}`;
+                window.print();
+            }, 100);
         },
 
         renderAdminSegments() {
@@ -2179,21 +2377,69 @@
           }
           segSel.value = d.segment === 'Pendente de Classificação' ? '' : d.segment;
           
-          document.getElementById('classEstoque').value = d.classEstoque;
-          document.getElementById('classAVN').value = d.classAVN;
-          document.getElementById('classAta').value = d.classAta;
-          document.getElementById('classTI').value = d.classTI;
+          this.setClassBtn('classEstoque', d.classEstoque);
+          this.setClassBtn('classAVN', d.classAVN);
+          this.setClassBtn('classAta', d.classAta);
+          this.setClassBtn('classTI', d.classTI);
+          
           document.getElementById('classStatusPCA').value = d.statusPCA;
           document.getElementById('classDFD').value = d.dfd || '';
+          
+          this.toggleClassExtras();
           
           document.getElementById('classifyModal').classList.remove('hidden');
         },
         
         closeClassifyModal() { document.getElementById('classifyModal').classList.add('hidden'); },
 
+        setClassBtn(field, value) {
+            const input = document.getElementById(field);
+            input.value = value;
+            const btnSim = document.getElementById(`btn_${field}_Sim`);
+            const btnNao = document.getElementById(`btn_${field}_Não`);
+            
+            btnSim.className = "px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition";
+            btnNao.className = "px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition";
+            
+            if(value === 'Sim') {
+                btnSim.className = "px-4 py-1.5 rounded-lg border border-green-500 bg-green-500 text-white font-bold shadow-sm transition";
+            } else if (value === 'Não') {
+                btnNao.className = "px-4 py-1.5 rounded-lg border border-red-500 bg-red-500 text-white font-bold shadow-sm transition";
+            }
+        },
+
+        toggleClassExtras() {
+            const status = document.getElementById('classStatusPCA').value;
+            const dfdBox = document.getElementById('boxClassDFD');
+            const rejectBox = document.getElementById('boxClassReject');
+            const routeBox = document.getElementById('boxClassRoute');
+            
+            dfdBox.classList.add('hidden');
+            rejectBox.classList.add('hidden');
+            routeBox.classList.add('hidden');
+
+            if(status === 'Deferido') dfdBox.classList.remove('hidden');
+            if(status === 'Indeferido') rejectBox.classList.remove('hidden');
+            if(status === 'Outro Encaminhamento') routeBox.classList.remove('hidden');
+        },
+
         saveClassification(e) {
           e.preventDefault();
           const id = document.getElementById('classDemandId').value;
+          const status = document.getElementById('classStatusPCA').value;
+          
+          let rejectReason = '';
+          let routeDetail = '';
+          
+          if(status === 'Indeferido') {
+              rejectReason = document.getElementById('classRejectReason').value.trim();
+              if(!rejectReason) return this.showToast('Preencha o motivo do indeferimento.', 'alert');
+          }
+          if(status === 'Outro Encaminhamento') {
+              routeDetail = document.getElementById('classRoutingType').value;
+              if(!routeDetail) return this.showToast('Selecione a lista de destino.', 'alert');
+          }
+
           const d = state.demands.find(x => x.id === id);
           if(d) {
             d.segment = document.getElementById('classSegment').value;
@@ -2201,8 +2447,10 @@
             d.classAVN = document.getElementById('classAVN').value;
             d.classAta = document.getElementById('classAta').value;
             d.classTI = document.getElementById('classTI').value;
-            d.statusPCA = document.getElementById('classStatusPCA').value;
+            d.statusPCA = status;
             d.dfd = document.getElementById('classDFD').value;
+            d.pcaFeedback = rejectReason;
+            d.routingDetail = routeDetail;
             
             this.persistData();
             if(window.cloudSyncInstance) window.cloudSyncInstance.saveDemand(d);
@@ -2221,7 +2469,6 @@
             if(!d) return;
             
             document.getElementById('vdYear').textContent = d.yearPCA;
-            document.getElementById('vdId').textContent = d.id.replace('REQ-', '');
             document.getElementById('vdTitle').textContent = d.title;
             document.getElementById('vdSector').textContent = d.sector;
             document.getElementById('vdUser').textContent = d.user;
@@ -2233,7 +2480,7 @@
             document.getElementById('vdDesc').textContent = d.desc;
             document.getElementById('vdNeedJust').textContent = d.needJust;
             document.getElementById('vdSipac').textContent = d.codeSIPAC;
-            document.getElementById('vdDateNeed').textContent = parseDate(d.dateNeed).split(' ')[0]; 
+            document.getElementById('vdDateNeed').textContent = parseDateOnly(d.dateNeed); 
             document.getElementById('vdPriority').textContent = d.priority;
             
             const linkEl = document.getElementById('vdLink');
