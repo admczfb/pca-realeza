@@ -277,7 +277,6 @@
             <p class="text-xs text-gray-500 mt-1">Preencha os dados técnicos e justificativas para a contratação/aquisição.</p>
           </div>
 
-          <!-- MENSAGEM DE JANELA FECHADA -->
           <div id="demandLockedMessage" class="hidden bg-gray-50 border border-gray-200 rounded-2xl p-12 text-center flex flex-col items-center justify-center">
             <div class="bg-red-100 text-red-600 p-5 rounded-full mb-5 shadow-sm"><i data-lucide="lock" class="w-10 h-10"></i></div>
             <h3 class="text-xl font-black text-gray-800 mb-2">Janela de Cadastros Fechada</h3>
@@ -287,7 +286,6 @@
             </p>
           </div>
 
-          <!-- FORMULÁRIO -->
           <div id="demandFormContainer">
             <form id="pcaDemandForm" onsubmit="window.pcaApp.submitDemand(event)" class="space-y-8 text-sm">
               <div class="bg-autumn-bg p-5 rounded-2xl border border-gray-200 space-y-4 shadow-sm">
@@ -330,7 +328,7 @@
                         </div>
                       </div>
                     </label>
-                    <input type="text" id="demCode" required placeholder="Ex: 0 ou 12345" class="w-full px-3 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-autumn-secondary focus:outline-none bg-white font-bold text-xs font-mono text-autumn-primary">
+                    <input type="text" id="demCode" required placeholder="Ex: 0 ou 12345" onblur="window.pcaApp.checkSipacMemory(this.value)" class="w-full px-3 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-autumn-secondary focus:outline-none bg-white font-bold text-xs font-mono text-autumn-primary">
                   </div>
                   <div>
                     <label class="block font-bold text-gray-700 mb-1 text-xs">Unidade de Medida <span class="text-red-500">*</span></label>
@@ -519,16 +517,16 @@
         </div>
       </div>
 
-      <!-- VIEW 3.5: DEMANDAS INDEFERIDAS -->
+      <!-- VIEW 3.5: DEMANDAS INDEFERIDAS / NÃO CADASTRADAS -->
       <div id="view-admin-rejected" class="space-y-6 hidden">
         <div class="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm">
           <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-gray-200 pb-5">
             <div>
               <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 text-[11px] font-bold mb-2 border border-red-200">
-                <i data-lucide="x-octagon" class="w-3.5 h-3.5"></i> Indeferidos
+                <i data-lucide="x-octagon" class="w-3.5 h-3.5"></i> Rejeitadas
               </div>
-              <h2 class="text-2xl font-black text-autumn-primary">Demandas Indeferidas</h2>
-              <p class="text-xs text-gray-500 mt-1">Histórico de solicitações que foram negadas/indeferidas no PCA.</p>
+              <h2 class="text-2xl font-black text-autumn-primary">Demandas Indeferidas ou Não Cadastradas</h2>
+              <p class="text-xs text-gray-500 mt-1">Histórico de solicitações que foram negadas ou canceladas no PCA.</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
               <div class="flex items-center bg-gray-50 border border-gray-300 rounded-xl px-2 py-1 shadow-inner">
@@ -614,6 +612,7 @@
                   <option value="É Item da lista dos postos Terceirizados">Postos Terceirizados</option>
                   <option value="É Item da lista de Móveis Padronizados">Móveis Padronizados</option>
                   <option value="É Item da lista de Materiais de Expediente Padronizados">Mat. Expediente Padronizados</option>
+                  <option value="É Item da lista de TIC">Itens de TIC</option>
                 </select>
               </div>
               <button onclick="window.pcaApp.printRoutingReport()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-sm border border-gray-300 flex items-center gap-1.5">
@@ -788,7 +787,6 @@
         </div>
 
         <div class="space-y-3 mb-5">
-          <!-- Item 1 -->
           <div class="flex items-center justify-between bg-white border border-gray-200 p-2.5 rounded-xl shadow-sm">
             <span class="font-bold text-gray-700 text-xs">Possui Estoque no Almoxarifado?</span>
             <div class="flex gap-2">
@@ -797,7 +795,6 @@
                <button type="button" onclick="window.pcaApp.setClassBtn('classEstoque', 'Não')" id="btn_classEstoque_Não" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Não</button>
             </div>
           </div>
-          <!-- Item 2 -->
           <div class="flex items-center justify-between bg-white border border-gray-200 p-2.5 rounded-xl shadow-sm">
             <span class="font-bold text-gray-700 text-xs">Faz parte do AVN?</span>
             <div class="flex gap-2">
@@ -806,7 +803,6 @@
                <button type="button" onclick="window.pcaApp.setClassBtn('classAVN', 'Não')" id="btn_classAVN_Não" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Não</button>
             </div>
           </div>
-          <!-- Item 3 -->
           <div class="flex items-center justify-between bg-white border border-gray-200 p-2.5 rounded-xl shadow-sm">
             <span class="font-bold text-gray-700 text-xs">Possui Saldo em Ata Vigente?</span>
             <div class="flex gap-2">
@@ -815,7 +811,6 @@
                <button type="button" onclick="window.pcaApp.setClassBtn('classAta', 'Não')" id="btn_classAta_Não" class="px-4 py-1.5 rounded-lg border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Não</button>
             </div>
           </div>
-          <!-- Item 4 -->
           <div class="flex items-center justify-between bg-white border border-gray-200 p-2.5 rounded-xl shadow-sm">
             <span class="font-bold text-gray-700 text-xs">É item de TI?</span>
             <div class="flex gap-2">
@@ -834,7 +829,8 @@
              <select id="classStatusPCA" onchange="window.pcaApp.toggleClassExtras()" class="w-full px-3 py-2.5 rounded-xl border border-gray-400 bg-white font-bold text-autumn-primary cursor-pointer">
                <option value="Pendente">Aguardando Avaliação</option>
                <option value="Deferido">Sim, Cadastrar no PCA</option>
-               <option value="Indeferido">Não Cadastrar (Indeferido)</option>
+               <option value="Não Cadastrar - Indeferido">Não Cadastrar - Indeferido</option>
+               <option value="Não Cadastrar">Não Cadastrar</option>
                <option value="Outro Encaminhamento">Outro Encaminhamento</option>
              </select>
           </div>
@@ -856,6 +852,7 @@
                <option value="É Item da lista dos postos Terceirizados">É Item da lista dos postos Terceirizados</option>
                <option value="É Item da lista de Móveis Padronizados">É Item da lista de Móveis Padronizados</option>
                <option value="É Item da lista de Materiais de Expediente Padronizados">É Item da lista de Materiais de Expediente Padronizados</option>
+               <option value="É Item da lista de TIC">É Item da lista de TIC</option>
              </select>
           </div>
         </div>
@@ -1139,6 +1136,24 @@
                 }
             }
         },
+        
+        checkSipacMemory(code) {
+            const val = code.trim();
+            if(!val || val === '0' || val.length < 3) return;
+
+            const found = state.demands.find(d => d.codeSIPAC === val);
+            if (found) {
+                const titleEl = document.getElementById('demTitle');
+                const descEl = document.getElementById('demDesc');
+                const unitEl = document.getElementById('demUnit');
+
+                if(!titleEl.value) titleEl.value = found.title;
+                if(!descEl.value) descEl.value = found.desc;
+                if(!unitEl.value) unitEl.value = found.unit;
+
+                this.showToast('Item carregado do histórico do PCA!', 'success');
+            }
+        },
 
         setMinimumDate() {
             const activeY = parseInt(state.activeYearPCA.replace(/\D/g, ''));
@@ -1329,7 +1344,7 @@
             h += `<button onclick="window.pcaApp.navigate('admin-inbox')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-inbox'?aC:iC}"><i data-lucide="inbox" class="w-4 h-4"></i> Entrada</button>`;
             h += `<button onclick="window.pcaApp.navigate('admin-catalog')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-catalog'?aC:iC}"><i data-lucide="tag" class="w-4 h-4"></i> Catalogação</button>`;
             h += `<button onclick="window.pcaApp.navigate('admin-approved')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-approved'?aC:iC}"><i data-lucide="check-square" class="w-4 h-4"></i> Oficial PCA</button>`;
-            h += `<button onclick="window.pcaApp.navigate('admin-rejected')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-rejected'?aC:iC}"><i data-lucide="x-octagon" class="w-4 h-4"></i> Indeferidos</button>`;
+            h += `<button onclick="window.pcaApp.navigate('admin-rejected')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-rejected'?aC:iC}"><i data-lucide="x-octagon" class="w-4 h-4"></i> Rejeitadas</button>`;
             h += `<button onclick="window.pcaApp.navigate('admin-segments')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-segments'?aC:iC}"><i data-lucide="layers" class="w-4 h-4"></i> Por Segmento</button>`;
             h += `<button onclick="window.pcaApp.navigate('admin-routings')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-routings'?aC:iC}"><i data-lucide="forward" class="w-4 h-4"></i> Redirecionadas</button>`;
             h += `<button onclick="window.pcaApp.navigate('admin-tracking')" class="px-4 py-2 text-xs flex items-center gap-1.5 ${state.currentView==='admin-tracking'?aC:iC}"><i data-lucide="trending-up" class="w-4 h-4"></i> Status Execução</button>`;
@@ -1472,7 +1487,7 @@
             let h = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">';
             results.forEach(d => {
                 let statusColor = d.statusPCA === 'Deferido' ? 'text-green-700 bg-green-100 border-green-200' : 
-                                 (d.statusPCA === 'Indeferido' ? 'text-red-700 bg-red-100 border-red-200' : 
+                                 (d.statusPCA.includes('Não Cadastrar') || d.statusPCA === 'Indeferido' ? 'text-red-700 bg-red-100 border-red-200' : 
                                  (d.statusPCA === 'Outro Encaminhamento' ? 'text-blue-700 bg-blue-100 border-blue-200' : 'text-autumn-secondary bg-autumn-mustard/20 border-autumn-mustard/40'));
                 
                 let execBadge = getExecutionBadge(d.executionStatus);
@@ -1812,8 +1827,8 @@
             statusPCA: 'Pendente',
             dfd: '',
             
-            pcaFeedback: '', // Justificativa de Indeferimento
-            routingDetail: '', // Detalhe de Outros Encaminhamentos
+            pcaFeedback: '', 
+            routingDetail: '', 
 
             executionStatus: 'PLANEJADA',
             executionReason: ''
@@ -1843,7 +1858,7 @@
           let h = '';
           myD.forEach(d => {
             let sBadge = d.statusPCA === 'Deferido' ? 'bg-green-100 text-green-800 border-green-200' : 
-                         (d.statusPCA === 'Indeferido' ? 'bg-red-100 text-red-800 border-red-200' : 
+                         (d.statusPCA.includes('Não Cadastrar') || d.statusPCA === 'Não Cadastrar - Indeferido' ? 'bg-red-100 text-red-800 border-red-200' : 
                          (d.statusPCA === 'Outro Encaminhamento' ? 'bg-blue-100 text-blue-800 border-blue-200' : 'bg-autumn-mustard/20 text-autumn-secondary border-autumn-mustard/40'));
             
             let yearBadge = getYearBadgeClass(d.yearPCA);
@@ -1885,7 +1900,7 @@
                   <div><span class="block text-gray-400 font-bold uppercase">DFD Nº</span> <span class="font-bold text-autumn-primary">${d.dfd || 'N/A'}</span></div>
                 </div>
                 
-                ${d.statusPCA === 'Indeferido' && d.pcaFeedback ? `<div class="bg-red-50 border border-red-200 p-3 rounded-xl text-xs text-red-800 mt-2 shadow-sm"><strong class="flex items-center gap-1.5 mb-0.5"><i data-lucide="x-circle" class="w-4 h-4"></i> Motivo do Indeferimento:</strong> ${d.pcaFeedback}</div>` : ''}
+                ${d.statusPCA.includes('Indeferido') && d.pcaFeedback ? `<div class="bg-red-50 border border-red-200 p-3 rounded-xl text-xs text-red-800 mt-2 shadow-sm"><strong class="flex items-center gap-1.5 mb-0.5"><i data-lucide="x-circle" class="w-4 h-4"></i> Motivo do Indeferimento:</strong> ${d.pcaFeedback}</div>` : ''}
                 ${d.statusPCA === 'Outro Encaminhamento' && d.routingDetail ? `<div class="bg-blue-50 border border-blue-200 p-3 rounded-xl text-xs text-blue-800 mt-2 shadow-sm"><strong class="flex items-center gap-1.5 mb-0.5"><i data-lucide="forward" class="w-4 h-4"></i> Redirecionamento da Demanda:</strong> ${d.routingDetail}</div>` : ''}
               </div>
             `;
@@ -2068,7 +2083,7 @@
           const filterS = document.getElementById('filterRejSector').value;
           const filterSeg = document.getElementById('filterRejSegment').value;
           
-          let listD = state.demands.filter(d => d.statusPCA === 'Indeferido' && d.codeSIPAC !== '0');
+          let listD = state.demands.filter(d => (d.statusPCA === 'Não Cadastrar - Indeferido' || d.statusPCA === 'Não Cadastrar' || d.statusPCA === 'Indeferido') && d.codeSIPAC !== '0');
           
           if (filterY !== 'all') { listD = listD.filter(d => d.yearPCA === filterY); }
           if (filterS !== 'all') { listD = listD.filter(d => d.sector === filterS); }
@@ -2086,7 +2101,7 @@
                   <div>
                     <div class="flex items-center gap-2 mb-2 flex-wrap">
                       <span class="font-mono text-xs font-black px-2 py-0.5 rounded border border-gray-300 bg-gray-100">${d.yearPCA}</span>
-                      <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-red-100 text-red-800 border border-red-200">INDEFERIDO</span>
+                      <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-red-100 text-red-800 border border-red-200 uppercase">${d.statusPCA}</span>
                       <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-50 text-purple-800 border border-purple-200">SIPAC: ${d.codeSIPAC}</span>
                     </div>
                     <h4 class="text-sm font-black text-gray-900 uppercase">${d.sector} <span class="text-gray-400 font-normal mx-1">•</span> <span class="capitalize text-gray-700">${d.user}</span></h4>
@@ -2174,20 +2189,17 @@
           const filterGrp = document.getElementById('filterSegGroup').value;
           
           let listD = state.demands.filter(d => d.segment !== 'Pendente de Classificação' && d.codeSIPAC !== '0');
-          
           if (filterY !== 'all') { listD = listD.filter(d => d.yearPCA === filterY); }
-          if (filterGrp !== 'all') { listD = listD.filter(d => d.segment === filterGrp); }
-          
-          if(listD.length === 0) { c.innerHTML = '<div class="p-8 text-center text-gray-400 font-bold bg-gray-50 rounded-2xl border border-dashed border-gray-300">Nenhuma demanda classificada encontrada para este filtro.</div>'; return; }
           
           const grouped = {};
+          
           listD.forEach(d => {
              const key = d.codeSIPAC;
              if (!grouped[key]) {
                  grouped[key] = {
                      sipac: d.codeSIPAC,
                      title: d.title,
-                     segment: d.segment,
+                     segment: d.segment, 
                      unit: d.unit,
                      totalQty: 0,
                      totalValue: 0,
@@ -2204,7 +2216,14 @@
              });
           });
 
-          const sortedGroups = Object.values(grouped).sort((a, b) => b.totalValue - a.totalValue);
+          let finalGroups = Object.values(grouped);
+          if (filterGrp !== 'all') { 
+              finalGroups = finalGroups.filter(g => g.segment === filterGrp); 
+          }
+          
+          if(finalGroups.length === 0) { c.innerHTML = '<div class="p-8 text-center text-gray-400 font-bold bg-gray-50 rounded-2xl border border-dashed border-gray-300">Nenhuma demanda classificada encontrada para este filtro.</div>'; return; }
+          
+          const sortedGroups = finalGroups.sort((a, b) => b.totalValue - a.totalValue);
 
           let h = '';
           sortedGroups.forEach(group => {
@@ -2419,7 +2438,7 @@
             routeBox.classList.add('hidden');
 
             if(status === 'Deferido') dfdBox.classList.remove('hidden');
-            if(status === 'Indeferido') rejectBox.classList.remove('hidden');
+            if(status === 'Não Cadastrar - Indeferido') rejectBox.classList.remove('hidden');
             if(status === 'Outro Encaminhamento') routeBox.classList.remove('hidden');
         },
 
@@ -2431,7 +2450,7 @@
           let rejectReason = '';
           let routeDetail = '';
           
-          if(status === 'Indeferido') {
+          if(status === 'Não Cadastrar - Indeferido') {
               rejectReason = document.getElementById('classRejectReason').value.trim();
               if(!rejectReason) return this.showToast('Preencha o motivo do indeferimento.', 'alert');
           }
@@ -2469,6 +2488,7 @@
             if(!d) return;
             
             document.getElementById('vdYear').textContent = d.yearPCA;
+            document.getElementById('vdId').textContent = d.id.replace('REQ-', '');
             document.getElementById('vdTitle').textContent = d.title;
             document.getElementById('vdSector').textContent = d.sector;
             document.getElementById('vdUser').textContent = d.user;
