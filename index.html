@@ -1137,21 +1137,41 @@
             }
         },
         
+        lastAutoFilledCode: '', // Variável que protege o que o usuário digita
+        
         checkSipacMemory(code) {
             const val = code.trim();
-            if(!val || val === '0' || val.length < 3) return;
+            const titleEl = document.getElementById('demTitle');
+            const descEl = document.getElementById('demDesc');
+            const unitEl = document.getElementById('demUnit');
 
-            const found = state.demands.find(d => d.codeSIPAC === val);
+            // Se o campo for limpo ou zerado
+            if(!val || val === '0' || val.length < 3) {
+                if (this.lastAutoFilledCode) {
+                    titleEl.value = ''; descEl.value = ''; unitEl.value = '';
+                    this.lastAutoFilledCode = '';
+                }
+                return;
+            }
+
+            const found = state.demands.find(d => d.codeSIPAC === val && d.codeSIPAC !== '0');
+            
             if (found) {
-                const titleEl = document.getElementById('demTitle');
-                const descEl = document.getElementById('demDesc');
-                const unitEl = document.getElementById('demUnit');
-
-                if(!titleEl.value) titleEl.value = found.title;
-                if(!descEl.value) descEl.value = found.desc;
-                if(!unitEl.value) unitEl.value = found.unit;
-
+                // Achou no histórico: Preenche e avisa que foi o sistema que fez isso
+                titleEl.value = found.title;
+                descEl.value = found.desc;
+                unitEl.value = found.unit;
+                this.lastAutoFilledCode = val; 
                 this.showToast('Item carregado do histórico do PCA!', 'success');
+            } else {
+                // Não achou: Só limpa se o sistema tiver preenchido antes (para não apagar o que o usuário digitou à mão)
+                if (this.lastAutoFilledCode) {
+                    titleEl.value = '';
+                    descEl.value = '';
+                    unitEl.value = '';
+                    this.lastAutoFilledCode = '';
+                    this.showToast('Código alterado. Preencha os dados do novo item.', 'info');
+                }
             }
         },
 
@@ -1842,6 +1862,9 @@
           document.getElementById('demTotalDisplay').textContent = 'R$ 0,00';
           this.togglePriorityJust();
           this.autoFillDemandForm();
+          
+          this.lastAutoFilledCode = ''; // Zera a memória para a próxima demanda
+          
           this.showToast('Demanda submetida com sucesso!', 'success');
           this.navigate('my-demands');
         },
